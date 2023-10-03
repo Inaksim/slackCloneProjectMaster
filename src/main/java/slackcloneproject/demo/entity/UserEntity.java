@@ -1,10 +1,9 @@
-package slackcloneproject.demo.entiy;
+package slackcloneproject.demo.entity;
 
 
 
 
 import lombok.*;
-import org.hibernate.dialect.HANAColumnStoreDialect;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -12,13 +11,10 @@ import javax.persistence.Entity;
 import javax.persistence.*;
 import javax.persistence.Table;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Date;
-import java.util.HashSet;
+import java.util.*;
 
 @Entity
-@Table
+@Table(name = "user")
 @Getter
 @Setter
 @AllArgsConstructor
@@ -46,7 +42,7 @@ public class UserEntity implements UserDetails, Serializable {
     private String jwt;
 
     @ManyToMany(fetch = FetchType.EAGER, mappedBy = "userEntities", cascade = CascadeType.ALL)
-    private Set<GroupEntiy> groupEntitySet = new HashSet<>();
+    private Set<GroupEntity> groupEntitySet = new HashSet<>();
 
     @OneToMany(mappedBy = "groupMapping", fetch = FetchType.EAGER)
     private Set<GroupUser> groupUsers = new HashSet<>();
