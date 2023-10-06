@@ -10,6 +10,8 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 import org.springframework.web.util.WebUtils;
 import slackcloneproject.demo.service.CustomUserDetailsService;
+import slackcloneproject.demo.utils.JwtUtil;
+import slackcloneproject.demo.utils.StaticVariable;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
@@ -20,6 +22,7 @@ import java.io.IOException;
 
 @Component
 public class JwtWebConfig extends OncePerRequestFilter {
+
 
     private CustomUserDetailsService customUserDetailsService;
 
@@ -38,7 +41,7 @@ public class JwtWebConfig extends OncePerRequestFilter {
         if (jwtToken != null) {
             username = jwtUtil.getUserNameFromJwtToken(jwtToken);
             try {
-                UserDetails userDetails = userDetailsService.loadUserByUsername(username);
+                UserDetails userDetails = customUserDetailsService.loadUserByUsername(username);
                 if (jwtUtil.validateToken(jwtToken, userDetails)) {
                     UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
                     SecurityContextHolder.getContext().setAuthentication(auth);

@@ -19,15 +19,7 @@ import java.util.Set;
 @NoArgsConstructor
 public class GroupEntity implements Serializable {
 
-    public GroupEntity(String name) {
-        this.name = name;
-    }
 
-    public GroupEntity(int id, String name, String url) {
-        this.id = id;
-        this.name = name;
-        this.url = url;
-    }
 
 
     @Id
@@ -60,5 +52,16 @@ public class GroupEntity implements Serializable {
     @JsonIgnore
     private Set<GroupEntity> groupEntities = new HashSet<>();
 
+    @OneToMany(mappedBy = "groupMapping", fetch = FetchType.EAGER)
+    @JsonIgnore
+    private Set<GroupUser> groupUsers = new HashSet<>();
+    public GroupEntity(String name) {
+        this.name = name;
+    }
 
+    public GroupEntity(int id, String name, String url) {
+        this.id = id;
+        this.name = name;
+        this.url = url;
+    }
 }

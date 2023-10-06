@@ -13,19 +13,7 @@ import org.springframework.messaging.handler.annotation.MessageExceptionHandler;
 @NoArgsConstructor
 public class GroupCallDTO {
 
-    private int id;
+    private Boolean anyCallActive;
 
-    private String url;
-
-    private String name;
-
-    private String groupType;
-
-    private String lastMessageSender;
-
-    private String lasMessage;
-
-    private String lastMessageDate;
-
-    private boolean isLastMessageSeen;
+    private String activeCallUrl;
 }
